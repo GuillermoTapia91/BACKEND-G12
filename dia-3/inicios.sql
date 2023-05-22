@@ -34,3 +34,69 @@ SELECT nombre FROM alumnos;
 SELECT nombre, correo FROM alumnos;
 
 --si sale END , AGRANDAMOS LA PANTALLA Y LUEGO ESCRIBIMOS Q
+SELECT * FROM alumnos;
+
+SELECT * FROM alumnos WHERE habilitado = true;
+
+SELECT * FROM alumnos
+WHERE habilitado = true AND apellido_materno='Manrique';
+
+SELECT * FROM alumnos
+WHERE habilitado = true AND apellido_materno='Manrique';
+
+-- busca los nombre que tengan la letra un sin importar lo qe haya antes o despues
+prueba=# SELECT nombre FROM alumnos WHERE nombre LIKE '%u%';
+
+-- Si usamos ILIKE no sera sencible a mayusculas o minusculas
+SELECT nombre FROM alumnos WHERE nombre  ILIKE '%e%';
+
+--debe tener la o en la segunda posicion
+SELECT nombre FROM alumnos WHERE nombre  ILIKE '_o%'
+
+SELECT * FROM alumnos WHERE correo  ILIKE '%gmail%' OR correo ILIKE '%hotmail%';
+
+CREATE TABLE direcciones (
+    -- una columna llamada id que sea primary key y autoincrementable
+    id  SERIAL PRIMARY KEY,
+    -- calle  y tiene que ser text y no puede ser nula
+    calle TEXT NOT NULL,
+    -- numero numeral y no puede ser nulo
+    numero INT NOT NULL,
+    -- referencia tiene que ser text y puede ser nulo
+    referencia TEXT NULL,
+    -- alumno_id tiene que ser un numero y no puede ser nulo
+    alumno_id INT NOT NULL,
+    -- RELACIONES
+    CONSTRAINT fk_direcciones_alumnos FOREIGN KEY(alumno_id) 
+    REFERENCES alumnos(id)
+);
+
+INSERT INTO direcciones (id, calle, numero, referencia, alumno_id) VALUES
+(DEFAULT, 'Av Ejercito', 1050, 'Al frente del Hospital', 1),
+(DEFAULT, 'Av Tulipanes', 123, NULL, 1),
+(DEFAULT, 'Calle Jose Olaya', 333, NULL, 2),
+(DEFAULT, 'Giron Los Girasoles', 576, 'Al frente del parque', 3),
+(DEFAULT, 'Pje. B', 8664, 'Al lado del periodiquero', 2),
+(DEFAULT, 'Calle Los Martires', 123, NULL, 4),
+(DEFAULT, 'Av Las condes', 252, 'En la esquina la casa blanca', 3);
+
+SELECT * FROM direcciones WHERE referencia IS NULL;
+
+SELECT * FROM direcciones WHERE referencia IS  NOT  NULL;
+
+SELECT * FROM direcciones WHERE (calle ILIKE '%Av%' OR calle ILIKE '%Calle%') AND  referencia IS  NULL;
+
+SELECT * FROM direcciones
+INNER JOIN alumnos
+
+ON direcciones.alumno_id = alumnos.id;
+
+
+
+
+
+
+
+
+
+
