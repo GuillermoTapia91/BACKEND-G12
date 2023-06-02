@@ -1,0 +1,8 @@
+# Ignorarar todas las carpetas cuyo nombre empiece con la palabra 'entorno'
+entorno_*
+
+# python cache , es la forma en la cual python accede de una manera mas rapida a la ubicación de los
+#archivos
+*.pyc
+
+.env
