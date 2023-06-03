@@ -13,7 +13,7 @@ class TipoUsuario(Enum):
     USUARIO = 'USUARIO'
 
 class Usuario(conexion.Model):
-    id = Column(type_= types.Integer, primary_Key=True, autoincrement=True)
+    id = Column(type_= types.Integer, primary_key=True, autoincrement=True)
     nombre = Column(type_=types.Text, nullable=False)
     apellido = Column(type_ = types.Text)
     #especialidad no puede ser nula, nullable =False

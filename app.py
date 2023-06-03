@@ -1,6 +1,12 @@
 from flask import Flask
 from flask_restful import Api
 from dotenv import load_dotenv
+from config import conexion
+from flask_migrate import Migrate
+from models.usuario_model import Usuario
+from models.publicacion_model import Publicacion
+from controllers.usuario_controllers import RegistroController,LoginController
+
 from os import environ #muestra las variables de entorno
 
 #las variables de entorno son variables que estan presentes de manera global en toda la
@@ -21,6 +27,14 @@ api = Api(app)
 # no para asiganr
 app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('DATABASE_URL')
 
+conexion.init_app(app)
+
+Migrate(app, conexion)
+
+#declaramos las rutas
+
+api.add_resource(RegistroController,'/registro-usuario')
+api.add_resource(LoginController,'/login')
 
 if __name__ == '__main__':
     app.run(debug=True)
