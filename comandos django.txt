@@ -1,0 +1,7 @@
+django-admin startproject NOMBRE_PROYECTO . > Sirve para crear un nuevo proyecto de django y el . sirve para indicar donde queremos que se cree ese proyecto
+
+python3.11 manage.py runserver , iniciara el servidor django
+
+python3.11 manage.py showmigrations >
+
+python3.11 manage.py migrate sirve para ejecutar
