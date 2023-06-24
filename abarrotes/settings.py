@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 from os import environ
 from dotenv import load_dotenv
 from pathlib import Path
+from cloudinary import config
 
 load_dotenv()
 
@@ -43,6 +44,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'gestion',
     'rest_framework',
+    'drf_yasg',
+    'cloudinary',
 ]
 
 MIDDLEWARE = [
@@ -139,3 +142,36 @@ MEDIA_ROOT = BASE_DIR / 'imagenes'
 
 MEDIA_URL = 'imagenes/'
 
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        # sirve para indicar a DRF cual sera la clase se usara para las cosas relacionadas a la autenticacion
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    )
+}
+
+from datetime import timedelta
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=365)
+}
+
+# https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#security-definitions-object
+
+SWAGGER_SETTINGS = {
+    'SECURITY_DEFINITIONS':{
+        'basic':{
+            'type':'apiKey',
+            'description':'Bearer <YOUR_TOKEN>',
+            'name': 'Authorization',
+            'in': 'header',
+        }
+    }
+}
+
+config(
+    cloud_name= environ.get('CLOUDINARY_NAME'),
+    api_key=environ.get('CLOUDINARY_API_KEY'),
+    api_secret=environ.get('CLOUDINARY_API_SECRET'),
+    secure=True
+)

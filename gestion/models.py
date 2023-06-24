@@ -1,28 +1,29 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser,PermissionsMixin, BaseUserManager
 from django.utils.html import mark_safe
+from cloudinary.models import CloudinaryField
 
 # Create your models here.
-class Imagen(models.Model):
-    nombre = models.TextField()
-    ubicacion = models.ImageField()
+# class Imagen(models.Model):
+#     nombre = models.ImageField()
     
-    def __str__(self):
-        return self.nombre
-
-    def ubicacion_tag(self):
-        return mark_safe('<img src="/imagenes/%s" width="150" heigth="150"/>' %(self.ubicacion))
     
-    ubicacion_tag.short_description = 'Imagen de la ubicacion'
+#     def __str__(self):
+#         return self.nombre
 
-    class Meta:
-        db_table = 'imagenes'
-        verbose_name_plural = 'Imagenes'
+#     def nombre_tag(self):
+#         return mark_safe('<img src="/imagenes/%s" width="150" heigth="150"/>' %(self.nombre))
+    
+#     nombre_tag.short_description = 'Figura de la imagen'
+
+#     class Meta:
+#         db_table = 'imagenes'
+#         verbose_name_plural = 'Imagenes'
 
 class Categoria(models.Model):
     nombre = models.TextField()
-    imagen = models.OneToOneField(to=Imagen, on_delete=models.RESTRICT, db_column='imagen_id')
-
+    #imagen = models.OneToOneField(to=Imagen, on_delete=models.RESTRICT, db_column='imagen_id')
+    imagen = CloudinaryField('categoria')
     class Meta:
         db_table = 'categorias'
 
@@ -32,7 +33,8 @@ class Producto(models.Model):
     lote = models.TextField(null=False)
     precio = models.FloatField(null=False)
     categoria =  models.ForeignKey(to=Categoria, on_delete=models.CASCADE, db_column='categoria_id',related_name='productos')
-    imagen = models.OneToOneField(to=Imagen, on_delete=models.RESTRICT, db_column='imagen_id', related_name='producto')
+    #imagen = models.OneToOneField(to=Imagen, on_delete=models.RESTRICT, db_column='imagen_id', related_name='producto')
+    imagen = CloudinaryField('producto')
 
     class Meta:
         db_table = 'productos'
