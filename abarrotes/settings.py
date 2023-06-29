@@ -30,7 +30,7 @@ SECRET_KEY = 'django-insecure-8^_w^!ss)*0h!c03xwv2@apk$z2djj8pz^h+(h0u8fa*4((w-s
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['abarrotes-api.onrender.com','127.0.0.1']
 
 
 # Application definition
