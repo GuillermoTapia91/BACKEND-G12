@@ -1,0 +1,4 @@
+npx
+
+prisma init > iniacializa prisma en nuestro proyecto
+prisma migrate dev >nos crea la migracion
