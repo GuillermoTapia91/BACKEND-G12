@@ -10,3 +10,8 @@ export const registroUsuarioDto = Joi.object({
     .regex(new RegExp(`${TipoUsuario.ADMIN}|${TipoUsuario.CLIENTE}`))
     .required(),
 });
+
+export const loginDto = Joi.object({
+  email: Joi.string().email().required(),
+  password: Joi.string().required(),
+});
